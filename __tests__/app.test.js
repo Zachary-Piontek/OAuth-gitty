@@ -22,6 +22,7 @@ describe('backend-express-template routes', () => {
       .get('/api/v1/github/login/callback?code=42')
       .redirects(1);
         
+    console.log(res.body);
     expect(res.body).toEqual({
       id: expect.any(String),
       username: 'fake_github_user',
