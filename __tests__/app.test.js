@@ -69,6 +69,18 @@ describe('backend-express-template routes', () => {
     console.log(res.body);
     expect(res.body.length).toEqual(1);
   });
+
+  it('create new post', async () => {
+    const agent = request.agent(app);
+    await agent.get('/api/v1/github/callback?code=42');
+    // remember agent(app) is not function for .post
+    const res = await agent.post('/api/v1/posts').send({ id:4, post: 'trailer park boys' });
+    console.log(res.body);
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      post: expect.any(String),
+    });
+  });
       
   afterAll(() => {
     pool.end();
