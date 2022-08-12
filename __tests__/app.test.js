@@ -57,12 +57,18 @@ describe('backend-express-template routes', () => {
   });
 
   it('return posts to users logged in', async () => {
-    const resp = await request(app).get('/api/v1/github/callback?code=42');
-    const res = await resp.get('/api/v1/posts');
-    console.log(resp.body);
+    // need to init agent to access user
+    const agent = request.agent(app);
+    await agent.get('/api/v1/github/callback?code=42');
+    // const res = await request
+    // .agent(app)
+    // .get('/api/v1/posts')
+    // .redirects(1);
+    const res = await
+    agent.get('/api/v1/posts');
+    console.log(res.body);
     expect(res.body.length).toEqual(1);
   });
-
       
   afterAll(() => {
     pool.end();
