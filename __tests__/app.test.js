@@ -44,6 +44,12 @@ describe('backend-express-template routes', () => {
       exp: expect.any(Number),
     });
   });
+
+  it('delete user session(logout)', async () => {
+    const resp = await request(app).delete('/api/v1/github/sessions');
+    console.log(resp.status);
+    expect(resp.status).toBe(204);
+  });
       
   afterAll(() => {
     pool.end();
