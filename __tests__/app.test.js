@@ -50,6 +50,19 @@ describe('backend-express-template routes', () => {
     console.log(resp.status);
     expect(resp.status).toBe(204);
   });
+
+  it('unauthenticated users no access to posts', async () => {
+    const res = await request(app).get('/api/v1/posts');
+    expect(res.status).toEqual(401);
+  });
+
+  it('return posts to users logged in', async () => {
+    const resp = await request(app).get('/api/v1/github/callback?code=42');
+    const res = await resp.get('/api/v1/posts');
+    console.log(resp.body);
+    expect(res.body.length).toEqual(1);
+  });
+
       
   afterAll(() => {
     pool.end();
