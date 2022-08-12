@@ -14,7 +14,7 @@ describe('backend-express-template routes', () => {
     const res = await request(app).get('/api/v1/github/login');
     // console.log(res.header.location);
     expect(res.header.location).toMatch(
-      'https://github.com/login/oauth/authorize?client_id=7524060cc5a16f129bc4&scope=user&redirect_uri=http://localhost:7890/api/v1/github/callback'
+      `https://github.com/login/oauth/authorize?client_id=${process.env.GH_CLIENT_ID}&scope=user&redirect_uri=${process.env.GH_REDIRECT_URI}`
     );
   });
 
